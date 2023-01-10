@@ -1,7 +1,3 @@
-// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
-// the code isn't run until the browser has finished rendering all the elements
-// in the html.
-
 
 // getting all needed elements
 var allSavebtn = $(".saveBtn")
@@ -20,6 +16,9 @@ var input3pm = $(inputHour[6])
 var input4pm = $(inputHour[7])
 var input5pm = $(inputHour[8])
 
+// Wrap all code that interacts with the DOM in a call to jQuery to ensure that
+// the code isn't run until the browser has finished rendering all the elements
+// in the html.
 // main function that get's called after page load
 $(function () {
   
@@ -50,7 +49,7 @@ $(function () {
     }
   }
   colorCheck() //checking colors on initial load
-  setInterval(colorCheck, 10000) //checking colors every 10 seconds
+  setInterval(colorCheck, 60000) //checking colors every 60 seconds
 
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
