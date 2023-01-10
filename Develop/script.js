@@ -1,19 +1,15 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
+
+
+// getting all needed elements
 var allSavebtn = $(".saveBtn")
-// var saveBtn9 = $("#saveBtn9am")
-// var saveBtn10 = $("#saveBtn10am")
-// var saveBtn11 = $("#saveBtn11am")
-// var saveBtn12 = $("#saveBtn12am")
-// var saveBtn13 = $("#saveBtn1pm")
-// var saveBtn14 = $("#saveBtn2pm")
-// var saveBtn15 = $("#saveBtn3pm")
-// var saveBtn16 = $("#saveBtn4pm")
-// var saveBtn17 = $("#saveBtn5pm")
 var timeDisplayEl = $('#time-display');
+
+// getting an array of all textarea's
 var inputHour = $("textarea").get()
-console.log(inputHour)
+// setting each textarea to appropriate variable for ease of use
 var input9am = $(inputHour[0])
 var input10am = $(inputHour[1])
 var input11am = $(inputHour[2])
@@ -24,14 +20,11 @@ var input3pm = $(inputHour[6])
 var input4pm = $(inputHour[7])
 var input5pm = $(inputHour[8])
 
-
-
-
+// main function that get's called after page load
 $(function () {
   
-  
+  // setting the hour of the day so it can be compared in the colorCheck function
   var hourOfDay = parseInt(dayjs().hour())
-  console.log(hourOfDay)
   
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -41,14 +34,17 @@ $(function () {
   function colorCheck(){
     for (let i = 0; i < inputHour.length; i++) {
       const hourColorCheck = $(inputHour[i]);
-
+      // using ID's that were set on each box and comparing to the current hour to the ID value
       if (inputHour[i].id < hourOfDay){
+        // if hour has passed set past class
         hourColorCheck.addClass("past")
       }
       else if (inputHour[i].id == hourOfDay){
+        // if hour is current set present class
         hourColorCheck.addClass("present")
       }
       else if(inputHour[i].id > hourOfDay){
+        // if hour has yet to pass set future class
         hourColorCheck.addClass("future")
       }
     }
@@ -63,7 +59,6 @@ $(function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   allSavebtn.on("click", function (event){
-    event.preventDefault()
     let text = $(this).siblings(".description").val()
     let time = $(this).parent().attr("id")
     console.log(text)
@@ -78,7 +73,7 @@ $(function () {
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   function renderLocal(){
-    
+    // checks local storage for  previously inputted text and renders them
     input9am.val(localStorage.getItem('hour-9'))
     input10am.val(localStorage.getItem('hour-10'))
     input11am.val(localStorage.getItem('hour-11'))
@@ -93,11 +88,12 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
   function displayTime() {
+    // uses day.js to get current date and time and sets it at the top of the page
     var rightNow = dayjs().format('MMM DD, YYYY [at] hh:mm:ss a');
     timeDisplayEl.text(rightNow);
   }
   displayTime();
-  setInterval(displayTime, 1000);
+  setInterval(displayTime, 1000); //updates clock at the top of the page every second
 });
 
 
